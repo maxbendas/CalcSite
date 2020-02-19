@@ -22,19 +22,20 @@ const startButton = document.querySelector('.start-button'),
   total = document.querySelector('.total'),
   fastRange = document.querySelector('.fast-range'),
   totalPriceSum = document.querySelector('.total_price__sum'),
+
+
   mobileTemplates = document.getElementById('mobileTemplates'),
   adapt = document.getElementById('adapt');
 
-// mobileTemplates.disabled = true;
-console.dir(adapt);
-if (adapt.checked) {
+adapt.addEventListener('change', foo);
 
-  console.log('adapt.checked');
-  // mobileTemplates.disabled = false;
-  // console.log(mobileTemplates);
-
+function foo() {
+  if (adapt.checked) {
+    mobileTemplates.disabled = false;
+  } else {
+    mobileTemplates.disabled = true;
+  }
 }
-
 
 
 function showElem(elem) {
