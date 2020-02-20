@@ -22,20 +22,25 @@ const startButton = document.querySelector('.start-button'),
   formCalculate = document.querySelector('.form-calculate'),
   endButton = document.querySelector('.end-button'),
   total = document.querySelector('.total'),
-  fastRange = document.querySelector('.fast-range'),
-  totalPriceSum = document.querySelector('.total_price__sum'),
   adapt = document.getElementById('adapt'),
   mobileTemplates = document.getElementById('mobileTemplates'),
+  editable = document.getElementById('editable'),
+  desktopTemplates = document.getElementById('desktopTemplates'),
+  adaptValue = document.querySelector('.adapt_value'),
+  mobileTemplatesValue = document.querySelector('.mobileTemplates_value'),
+  editableValue = document.querySelector('.editable_value'),
+  desktopTemplatesValue = document.querySelector('.desktopTemplates_value'),
+  fastRange = document.querySelector('.fast-range'),
+  totalPriceSum = document.querySelector('.total_price__sum'),
   typeSite = document.querySelector('.type-site'),
   maxDeadline = document.querySelector('.max-deadline'),
   rangeDeadline = document.querySelector('.range-deadline'),
-  deadlineValue = document.querySelector('.deadline-value'),
-  checkboxLabel = document.querySelectorAll('.checkbox-label');
+  deadlineValue = document.querySelector('.deadline-value');
 
-  function declOfNum(n, titles) {
-    return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
-                            0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
-  }
+function declOfNum(n, titles) {
+  return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
+    0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+}
 
 function showElem(elem) {
   elem.style.display = 'block';
@@ -45,7 +50,33 @@ function hideElem(elem) {
   elem.style.display = 'none';
 }
 
-function renderTextContent(total, site, maxDay, minDay){
+function renderTextContent(total, site, maxDay, minDay) {
+
+  if (adapt.checked) {
+    adaptValue.textContent = 'Да';
+  } else {
+    adaptValue.textContent = 'Нет';
+  }
+
+  if (mobileTemplates.checked) {
+    mobileTemplatesValue.textContent = 'Да';
+  } else {
+    mobileTemplatesValue.textContent = 'Нет';
+  }
+
+  if (editable.checked) {
+    editableValue.textContent = 'Да';
+  } else {
+    editableValue.textContent = 'Нет';
+  }
+
+  if (desktopTemplates.checked) {
+    desktopTemplatesValue.textContent = 'Да';
+  } else {
+    desktopTemplatesValue.textContent = 'Нет';
+  }
+
+
   totalPriceSum.textContent = total;
   typeSite.textContent = site;
   maxDeadline.textContent = declOfNum(maxDay, DAY_STRING);
@@ -103,23 +134,12 @@ function priceCalculation(elem) {
 
   renderTextContent(result, site, maxDeadlineDay, minDeadlineDay);
 
-  
 }
 
 
 function handlerCallBackForm(event) {
   const target = event.target;
 
-
-
-  if (checkboxLabel.checked) {
-    console.log('yes');
-   } else {
-   console.log('no');
-   }
-    
-   
-  
   if (adapt.checked) {
     mobileTemplates.disabled = false;
   } else {
