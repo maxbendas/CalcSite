@@ -230,6 +230,26 @@ const moveTotal = () => {
   }
 }
 
+const formSubmit = event => {
+  event.preventDefault();
+
+  const data = new FormData(event.target)
+
+  fetch('server.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    body: data,
+  })
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+}
+
 startButton.addEventListener('click', () => {
   showElem(mainForm);
   hideElem(firstScreen);
@@ -253,5 +273,7 @@ endButton.addEventListener('click', () => {
 });
 
 formCalculate.addEventListener('change', handlerCallBackForm);
+
+formCalculate.addEventListener('submit', formSubmit);
 
 priceCalculation();
