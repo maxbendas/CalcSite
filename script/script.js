@@ -213,7 +213,7 @@ const handlerCallBackForm = event => {
 };
 
 const moveBackTotal = () => {
-  if (document.documentElement.getBoundingClientRect().bottom > document.documentElement.clie) {
+  if (document.documentElement.getBoundingClientRect().bottom > document.documentElement.clientHeight + 200) {
     totalPrice.classList.remove('totalPriceBottom');
     firstFieldset.after(totalPrice);
     window.removeEventListener('scroll', moveBackTotal);
@@ -222,13 +222,23 @@ const moveBackTotal = () => {
 };
 
 const moveTotal = () => {
-  if (document.documentElement.getBoundingClientRect().bottom < document.documentElement.clie) {
+  if (document.documentElement.getBoundingClientRect().bottom < document.documentElement.clientHeight + 200) {
     totalPrice.classList.add('totalPriceBottom');
     endButton.before(totalPrice);
     window.removeEventListener('scroll', moveTotal);
     window.addEventListener('scroll', moveBackTotal);
   }
 }
+
+const renderResponse = response => {
+  if (response.ok){
+    hideElem(total);
+
+    cardHead.textContent = 'Заявка на разработку сайта была отправлена, мы скоро свяжемся с вами.';
+    cardHead.style.color = 'green';
+
+  }
+};
 
 const formSubmit = event => {
   event.preventDefault();
@@ -240,11 +250,9 @@ const formSubmit = event => {
     headers: {
       'Content-Type': 'multipart/form-data'
     },
-    body: data,
+    body: data
   })
-    .then(response => {
-      console.log(response);
-    })
+    .then(renderResponse)
     .catch(error => {
       console.error(error);
     })
